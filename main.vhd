@@ -67,6 +67,12 @@ begin
         end if;
       end if; 
 
+      if (to_integer(postcnt) <= POST_22) then -- visual debug added, Octal450
+        DBG <= POSTBIT;
+      else
+        DBG <= '0';
+      end if;
+
       -- main counter
       if (to_integer(postcnt) < POST_21) or (to_integer(postcnt) > POST_22) then
         cnt <= (others => '0');
@@ -79,10 +85,8 @@ begin
       -- bypass
       if (to_integer(postcnt) >= POST_20)  and (to_integer(postcnt) <= POST_22) and (cnt < TIME_BYPASS_END) then
         CPU_PLL_BYPASS <= '1';
-        DBG <= '1';
       else
         CPU_PLL_BYPASS <= '0';
-        DBG <= '0';
       end if;
       
       -- reset
